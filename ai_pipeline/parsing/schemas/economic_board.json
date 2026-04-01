@@ -1,0 +1,168 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "EconomicBoardGame",
+  "description": "Schema for parsed economic board game rules",
+  "type": "object",
+  "required": [
+    "type",
+    "name",
+    "players",
+    "turn_based",
+    "components",
+    "phases",
+    "win_condition"
+  ],
+  "properties": {
+    "type": {
+      "type": "string",
+      "const": "economic_board"
+    },
+    "name": {
+      "type": "string",
+      "description": "Name of the board game"
+    },
+    "players": {
+      "type": "object",
+      "required": ["min", "max"],
+      "properties": {
+        "min": { "type": "integer", "minimum": 1 },
+        "max": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "turn_based": {
+      "type": "boolean",
+      "default": true
+    },
+    "components": {
+      "type": "object",
+      "required": ["board", "starting_money"],
+      "properties": {
+        "board": {
+          "type": "object",
+          "required": ["total_spaces", "spaces"],
+          "properties": {
+            "total_spaces": { "type": "integer", "minimum": 1 },
+            "layout": {
+              "type": "string",
+              "enum": ["loop", "linear", "branching"],
+              "default": "loop"
+            },
+            "spaces": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["index", "type", "name"],
+                "properties": {
+                  "index": { "type": "integer", "minimum": 0 },
+                  "type": {
+                    "type": "string",
+                    "enum": [
+                      "start",
+                      "property",
+                      "railroad",
+                      "utility",
+                      "tax",
+                      "chance",
+                      "community_chest",
+                      "jail",
+                      "go_to_jail",
+                      "free_parking",
+                      "event",
+                      "special",
+                      "empty"
+                    ]
+                  },
+                  "name": { "type": "string" },
+                  "group": {
+                    "type": "string",
+                    "description": "Color group or category"
+                  },
+                  "price": { "type": "number", "minimum": 0 },
+                  "rent": {
+                    "type": "array",
+                    "items": { "type": "number" },
+                    "description": "Rent levels: [base, 1house, 2houses, 3houses, 4houses, hotel]"
+                  },
+                  "house_cost": { "type": "number", "minimum": 0 },
+                  "mortgage_value": { "type": "number", "minimum": 0 },
+                  "effect": {
+                    "type": "object",
+                    "properties": {
+                      "action": { "type": "string" },
+                      "value": {}
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "dice": {
+          "type": "object",
+          "properties": {
+            "count": { "type": "integer", "minimum": 1, "default": 2 },
+            "sides": { "type": "integer", "minimum": 2, "default": 6 }
+          }
+        },
+        "starting_money": { "type": "number", "minimum": 0 },
+        "currency_unit": { "type": "string", "default": "$" },
+        "pass_go_bonus": {
+          "type": "number",
+          "description": "Money received when passing start/go space"
+        },
+        "buildings": {
+          "type": "object",
+          "properties": {
+            "house_max": { "type": "integer", "default": 4 },
+            "hotel_max": { "type": "integer", "default": 1 },
+            "requires_complete_set": { "type": "boolean", "default": true }
+          }
+        },
+        "cards": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "deck": { "type": "string" },
+              "text": { "type": "string" },
+              "effect": {
+                "type": "object",
+                "properties": {
+                  "action": { "type": "string" },
+                  "value": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "phases": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Ordered list of turn phases"
+    },
+    "win_condition": {
+      "type": "string",
+      "enum": [
+        "last_player_standing",
+        "most_money",
+        "first_to_target",
+        "most_points"
+      ],
+      "description": "How the winner is determined"
+    },
+    "special_rules": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "description": { "type": "string" },
+          "trigger": { "type": "string" },
+          "effect": { "type": "string" }
+        }
+      }
+    }
+  }
+}

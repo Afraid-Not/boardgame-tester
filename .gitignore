@@ -1,0 +1,60 @@
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.pytest_cache/
+.mypy_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# RL checkpoints & models
+rl_engine/checkpoints/*.zip
+rl_engine/checkpoints/*.pkl
+*.pt
+*.pth
+
+# Node.js
+node_modules/
+.next/
+out/
+frontend/.next/
+frontend/node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+logs/
+
+# Docker
+docker-compose.override.yml
+
+# Data (large files)
+data/raw/**/*.csv
+data/raw/**/*.json
+data/processed/**/*.pkl
+data/processed/**/*.npy
+
+# ngrok
+ngrok.yml
