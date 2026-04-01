@@ -20,8 +20,7 @@ venv/
 env/
 
 # RL checkpoints & models
-rl_engine/checkpoints/*.zip
-rl_engine/checkpoints/*.pkl
+rl_engine/checkpoints/
 *.pt
 *.pth
 
@@ -55,6 +54,10 @@ data/raw/**/*.csv
 data/raw/**/*.json
 data/processed/**/*.pkl
 data/processed/**/*.npy
+data/processed/**/*.json
 
 # ngrok
 ngrok.yml
+
+# Claude Code
+CLAUDE.md
